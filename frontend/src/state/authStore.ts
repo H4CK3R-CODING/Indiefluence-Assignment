@@ -67,7 +67,7 @@ export interface PetProfileData {
   age: number | null;
   weight: number | null;
   vaccinated: boolean | null;
-  imageUri?: string;
+  imageUrl?: string;
 }
 
 // interface PetProfileData {
@@ -516,6 +516,7 @@ const useAuthStore = create<AuthStore>((set, get) => ({
       }
 
       console.log("🐾 Creating pet profile...");
+      console.log("Pet Data:", petData);
 
       const response: AxiosResponse<PetResponse> = await api.post(
         "/pet",

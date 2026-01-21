@@ -14,6 +14,7 @@ import MyProfileScreen from "../screens/MyProfileScreen";
 import FindMatchesScreen from "../screens/FindMatchesScreen";
 import MessagesScreen from "../screens/MessagesScreen";
 import MyMatchesScreen from "../screens/MyMatchesScreen";
+import MyPetsScreen from "../screens/MyPetsScreen";
 // import MyMatchesScreen  from "../screens/Matches/MyMatchesScreen";
 // import MessagesScreen from "../screens/Messages/MessagesScreen";
 // ============================================
@@ -33,6 +34,7 @@ export type UserDrawerParamList = {
   Settings: undefined;
   HelpSupport: undefined;
   FindMatchesScreen: undefined;
+  MyPetsScreen: undefined;
 };
 
 const Drawer = createDrawerNavigator<UserDrawerParamList>();
@@ -58,14 +60,6 @@ export default function UserNavigator(): React.JSX.Element {
       }}
     >
 
-      <Drawer.Screen 
-        name="MyProfile" 
-        component={WelcomeScreen}
-        options={{ 
-          title: "My Profile",
-          drawerLabel: "My Profile",
-        }}
-      />
       <Drawer.Screen
         name="UserProfileSetup"
         component={UserProfileSetupScreen}
@@ -77,6 +71,10 @@ export default function UserNavigator(): React.JSX.Element {
       <Drawer.Screen
         name="MyProfileScreen"
         component={MyProfileScreen}
+      />
+      <Drawer.Screen
+        name="MyPetsScreen"
+        component={MyPetsScreen}
       />
       <Drawer.Screen
         name="FindMatchesScreen"

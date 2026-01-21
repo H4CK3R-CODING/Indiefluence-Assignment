@@ -4,6 +4,7 @@ import { View, Text, TouchableOpacity, ScrollView, Image } from "react-native";
 import { Ionicons } from "@expo/vector-icons";
 import { DrawerContentComponentProps } from "@react-navigation/drawer";
 import useAuthStore from "../state/authStore";
+import { LinearGradient } from "expo-linear-gradient";
 
 // ============================================
 // Types
@@ -46,7 +47,9 @@ interface DrawerMenuItem {
 // Custom Drawer Content Component
 // ============================================
 
-const CustomDrawerContent: React.FC<DrawerContentComponentProps> = ({ navigation }) => {
+const CustomDrawerContent: React.FC<DrawerContentComponentProps> = ({
+  navigation,
+}) => {
   const { isLoggedIn, user, pet, logout } = useAuthStore();
 
   // ---------- Drawer Item Component ----------
@@ -87,11 +90,11 @@ const CustomDrawerContent: React.FC<DrawerContentComponentProps> = ({ navigation
   );
 
   // ---------- Quick Action Component ----------
-  const QuickAction: React.FC<QuickActionProps> = ({ 
-    icon, 
-    label, 
-    onPress, 
-    color = "bg-green-500" 
+  const QuickAction: React.FC<QuickActionProps> = ({
+    icon,
+    label,
+    onPress,
+    color = "bg-green-500",
   }) => (
     <TouchableOpacity className="items-center flex-1" onPress={onPress}>
       <View
@@ -123,7 +126,7 @@ const CustomDrawerContent: React.FC<DrawerContentComponentProps> = ({ navigation
         },
         {
           iconName: "create-outline",
-          label: "User Profile Setup",
+          label: "Edit User Profile",
           screen: "UserProfileSetup",
         },
         {
@@ -131,50 +134,16 @@ const CustomDrawerContent: React.FC<DrawerContentComponentProps> = ({ navigation
           label: "Pet Profile Creation",
           screen: "PetProfileCreationScreen",
         },
-      ],
-    },
-    {
-      section: "DISCOVER",
-      items: [
         {
-          iconName: "search-outline",
-          label: "Find Matches",
-          screen: "FindMatchesScreen",
-        },
-        {
-          iconName: "heart-outline",
-          label: "My Matches",
-          screen: "MyMatches",
-          badge: "3",
-          badgeColor: "bg-pink-500",
-        },
-        {
-          iconName: "chatbubbles-outline",
-          label: "Messages",
-          screen: "Messages",
-          badge: "2",
-          badgeColor: "bg-blue-500",
+          iconName: "paw-outline",
+          label: "My All Pets",
+          screen: "MyPetsScreen",
         },
       ],
     },
     {
       section: "SETTINGS",
       items: [
-        {
-          iconName: "notifications-outline",
-          label: "Notifications",
-          screen: "Notifications",
-        },
-        {
-          iconName: "settings-outline",
-          label: "Settings",
-          screen: "Settings",
-        },
-        {
-          iconName: "help-circle-outline",
-          label: "Help & Support",
-          screen: "HelpSupport",
-        },
         {
           iconName: "log-out-outline",
           label: "Logout",
@@ -195,24 +164,9 @@ const CustomDrawerContent: React.FC<DrawerContentComponentProps> = ({ navigation
           screen: "Welcome",
         },
         {
-          iconName: "information-circle-outline",
-          label: "About",
-          screen: "About",
-        },
-        {
           iconName: "log-in-outline",
           label: "Sign In / Register",
           screen: "Auth",
-        },
-      ],
-    },
-    {
-      section: "SUPPORT",
-      items: [
-        {
-          iconName: "help-circle-outline",
-          label: "Help & Support",
-          screen: "HelpSupport",
         },
       ],
     },
@@ -226,7 +180,12 @@ const CustomDrawerContent: React.FC<DrawerContentComponentProps> = ({ navigation
   return (
     <View className="flex-1 bg-white dark:bg-gray-900">
       {/* Header */}
-      <View className="bg-gradient-to-br from-green-500 to-emerald-600 pt-12 pb-6 px-6 relative">
+      <LinearGradient
+        colors={["#22C55E", "#059669"]}
+        start={{ x: 0, y: 0 }}
+        end={{ x: 1, y: 1 }}
+        className=" pt-12 pb-6 px-6 relative"
+      >
         <TouchableOpacity
           className="absolute top-4 right-4 z-10"
           onPress={() => navigation.closeDrawer()}
@@ -270,20 +229,20 @@ const CustomDrawerContent: React.FC<DrawerContentComponentProps> = ({ navigation
             <View className="flex-row justify-around mt-4">
               <QuickAction
                 icon="person-outline"
-                label="Profile"
-                onPress={() => navigation.navigate("MyProfile")}
+                label="View Profile"
+                onPress={() => navigation.navigate("MyProfileScreen")}
                 color="bg-white/20"
               />
               <QuickAction
-                icon="heart-outline"
-                label="Matches"
-                onPress={() => navigation.navigate("MyMatches")}
+                icon="create-outline"
+                label="Edit Profile"
+                onPress={() => navigation.navigate("UserProfileSetup")}
                 color="bg-white/20"
               />
               <QuickAction
-                icon="chatbubbles-outline"
-                label="Messages"
-                onPress={() => navigation.navigate("Messages")}
+                icon="paw-outline"
+                label="Pet Profile"
+                onPress={() => navigation.navigate("PetProfileCreationScreen")}
                 color="bg-white/20"
               />
             </View>
@@ -302,13 +261,10 @@ const CustomDrawerContent: React.FC<DrawerContentComponentProps> = ({ navigation
             </Text>
           </View>
         )}
-      </View>
+      </LinearGradient>
 
       {/* Drawer Menu Items */}
-      <ScrollView
-        className="flex-1"
-        showsVerticalScrollIndicator={false}
-      >
+      <ScrollView className="flex-1" showsVerticalScrollIndicator={false}>
         {sections.map((section) => (
           <View key={section.section}>
             <SectionHeader title={section.section} />

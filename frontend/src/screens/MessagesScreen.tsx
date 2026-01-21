@@ -8,8 +8,6 @@ import {
   Image,
   Animated,
   Dimensions,
-  FlatList,
-  StatusBar
 } from 'react-native';
 
 const { width: SCREEN_WIDTH } = Dimensions.get('window');
@@ -39,8 +37,7 @@ export default function MessagesScreen() {
 
   return (
     <View className="flex-1 bg-gray-50">
-      <StatusBar barStyle="dark-content" />
-      
+
       {/* Header */}
       <View className="bg-white px-6 pt-12 pb-4 shadow-sm flex-row items-center">
         <TouchableOpacity className="mr-4">

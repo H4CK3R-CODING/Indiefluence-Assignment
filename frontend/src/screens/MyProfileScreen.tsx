@@ -35,17 +35,18 @@ interface SectionHeaderProps {
   icon: keyof typeof Ionicons.glyphMap;
   title: string;
   onEdit?: () => void;
+  onViewAll?: () => void;
 }
 
 // ============================================
 // Info Card Component
 // ============================================
 
-const InfoCard: React.FC<InfoCardProps> = ({ 
-  icon, 
-  label, 
-  value, 
-  iconColor = "#10B981" 
+const InfoCard: React.FC<InfoCardProps> = ({
+  icon,
+  label,
+  value,
+  iconColor = "#10B981",
 }) => (
   <View className="bg-gray-50 dark:bg-gray-800 p-4 rounded-xl mb-3">
     <View className="flex-row items-center mb-2">
@@ -76,7 +77,12 @@ const InterestChip: React.FC<InterestChipProps> = ({ text }) => (
 // Section Header Component
 // ============================================
 
-const SectionHeader: React.FC<SectionHeaderProps> = ({ icon, title, onEdit }) => (
+const SectionHeader: React.FC<SectionHeaderProps> = ({
+  icon,
+  title,
+  onEdit,
+  onViewAll
+}) => (
   <View className="flex-row items-center justify-between mb-4">
     <View className="flex-row items-center">
       <Ionicons name={icon} size={24} color="#10B981" />
@@ -92,6 +98,19 @@ const SectionHeader: React.FC<SectionHeaderProps> = ({ icon, title, onEdit }) =>
         <View className="flex-row items-center">
           <Ionicons name="create-outline" size={16} color="white" />
           <Text className="ml-1 text-white font-semibold text-sm">Edit</Text>
+        </View>
+      </TouchableOpacity>
+    )}
+    {onViewAll && (
+      <TouchableOpacity
+        onPress={onViewAll}
+        className="bg-green-500 dark:bg-green-600 px-4 py-2 rounded-lg"
+      >
+        <View className="flex-row items-center">
+          <Ionicons name="paw-outline" size={16} color="white" />
+          <Text className="ml-1 text-white font-semibold text-sm">
+            View All Pets
+          </Text>
         </View>
       </TouchableOpacity>
     )}
@@ -127,20 +146,16 @@ export default function MyProfileScreen(): React.JSX.Element {
 
   // Handle Logout
   const handleLogout = () => {
-    Alert.alert(
-      "Logout",
-      "Are you sure you want to logout?",
-      [
-        { text: "Cancel", style: "cancel" },
-        {
-          text: "Logout",
-          style: "destructive",
-          onPress: async () => {
-            await logout();
-          },
+    Alert.alert("Logout", "Are you sure you want to logout?", [
+      { text: "Cancel", style: "cancel" },
+      {
+        text: "Logout",
+        style: "destructive",
+        onPress: async () => {
+          await logout();
         },
-      ]
-    );
+      },
+    ]);
   };
 
   return (
@@ -214,7 +229,9 @@ export default function MyProfileScreen(): React.JSX.Element {
               <View className="flex-row justify-around">
                 <TouchableOpacity
                   className="items-center flex-1"
-                  onPress={() => navigation.navigate("UserProfileSetup" as never)}
+                  onPress={() =>
+                    navigation.navigate("UserProfileSetup" as never)
+                  }
                 >
                   <View className="w-12 h-12 rounded-full bg-green-100 dark:bg-green-900/30 items-center justify-center mb-2">
                     <Ionicons name="create-outline" size={24} color="#10B981" />
@@ -226,22 +243,14 @@ export default function MyProfileScreen(): React.JSX.Element {
 
                 <TouchableOpacity
                   className="items-center flex-1"
-                  onPress={() => navigation.navigate("Settings" as never)}
-                >
-                  <View className="w-12 h-12 rounded-full bg-blue-100 dark:bg-blue-900/30 items-center justify-center mb-2">
-                    <Ionicons name="settings-outline" size={24} color="#3B82F6" />
-                  </View>
-                  <Text className="text-gray-700 dark:text-gray-300 text-xs font-medium">
-                    Settings
-                  </Text>
-                </TouchableOpacity>
-
-                <TouchableOpacity
-                  className="items-center flex-1"
                   onPress={handleLogout}
                 >
                   <View className="w-12 h-12 rounded-full bg-red-100 dark:bg-red-900/30 items-center justify-center mb-2">
-                    <Ionicons name="log-out-outline" size={24} color="#EF4444" />
+                    <Ionicons
+                      name="log-out-outline"
+                      size={24}
+                      color="#EF4444"
+                    />
                   </View>
                   <Text className="text-gray-700 dark:text-gray-300 text-xs font-medium">
                     Logout
@@ -295,7 +304,9 @@ export default function MyProfileScreen(): React.JSX.Element {
                 <SectionHeader
                   icon="heart-outline"
                   title="My Interests"
-                  onEdit={() => navigation.navigate("UserProfileSetup" as never)}
+                  onEdit={() =>
+                    navigation.navigate("UserProfileSetup" as never)
+                  }
                 />
                 <View className="flex-row flex-wrap">
                   {user.interests.map((interest, index) => (
@@ -310,9 +321,9 @@ export default function MyProfileScreen(): React.JSX.Element {
               <SectionHeader
                 icon="paw-outline"
                 title="My Pet"
-                onEdit={
+                onViewAll={
                   pet
-                    ? () => navigation.navigate("PetProfileSetup" as never)
+                    ? () => navigation.navigate("MyPetsScreen" as never)
                     : undefined
                 }
               />
@@ -345,8 +356,14 @@ export default function MyProfileScreen(): React.JSX.Element {
                   <View className="bg-white dark:bg-gray-800 rounded-xl p-4 space-y-3">
                     <View className="flex-row justify-between items-center py-2 border-b border-gray-100 dark:border-gray-700">
                       <View className="flex-row items-center">
-                        <Ionicons name="male-female-outline" size={18} color="#10B981" />
-                        <Text className="ml-2 text-gray-600 dark:text-gray-400">Gender</Text>
+                        <Ionicons
+                          name="male-female-outline"
+                          size={18}
+                          color="#10B981"
+                        />
+                        <Text className="ml-2 text-gray-600 dark:text-gray-400">
+                          Gender
+                        </Text>
                       </View>
                       <Text className="text-gray-900 dark:text-white font-semibold">
                         {pet.gender || "Not specified"}
@@ -355,8 +372,14 @@ export default function MyProfileScreen(): React.JSX.Element {
 
                     <View className="flex-row justify-between items-center py-2 border-b border-gray-100 dark:border-gray-700">
                       <View className="flex-row items-center">
-                        <Ionicons name="calendar-outline" size={18} color="#10B981" />
-                        <Text className="ml-2 text-gray-600 dark:text-gray-400">Age</Text>
+                        <Ionicons
+                          name="calendar-outline"
+                          size={18}
+                          color="#10B981"
+                        />
+                        <Text className="ml-2 text-gray-600 dark:text-gray-400">
+                          Age
+                        </Text>
                       </View>
                       <Text className="text-gray-900 dark:text-white font-semibold">
                         {pet.age ? `${pet.age} years` : "Not specified"}
@@ -365,8 +388,14 @@ export default function MyProfileScreen(): React.JSX.Element {
 
                     <View className="flex-row justify-between items-center py-2 border-b border-gray-100 dark:border-gray-700">
                       <View className="flex-row items-center">
-                        <Ionicons name="speedometer-outline" size={18} color="#10B981" />
-                        <Text className="ml-2 text-gray-600 dark:text-gray-400">Weight</Text>
+                        <Ionicons
+                          name="speedometer-outline"
+                          size={18}
+                          color="#10B981"
+                        />
+                        <Text className="ml-2 text-gray-600 dark:text-gray-400">
+                          Weight
+                        </Text>
                       </View>
                       <Text className="text-gray-900 dark:text-white font-semibold">
                         {pet.weight ? `${pet.weight} kg` : "Not specified"}
@@ -375,19 +404,29 @@ export default function MyProfileScreen(): React.JSX.Element {
 
                     <View className="flex-row justify-between items-center py-2">
                       <View className="flex-row items-center">
-                        <Ionicons name="medkit-outline" size={18} color="#10B981" />
-                        <Text className="ml-2 text-gray-600 dark:text-gray-400">Vaccinated</Text>
+                        <Ionicons
+                          name="medkit-outline"
+                          size={18}
+                          color="#10B981"
+                        />
+                        <Text className="ml-2 text-gray-600 dark:text-gray-400">
+                          Vaccinated
+                        </Text>
                       </View>
-                      <View className={`px-3 py-1 rounded-full ${
-                        pet.vaccinated
-                          ? "bg-green-100 dark:bg-green-900/30"
-                          : "bg-red-100 dark:bg-red-900/30"
-                      }`}>
-                        <Text className={`font-semibold text-xs ${
+                      <View
+                        className={`px-3 py-1 rounded-full ${
                           pet.vaccinated
-                            ? "text-green-700 dark:text-green-300"
-                            : "text-red-700 dark:text-red-300"
-                        }`}>
+                            ? "bg-green-100 dark:bg-green-900/30"
+                            : "bg-red-100 dark:bg-red-900/30"
+                        }`}
+                      >
+                        <Text
+                          className={`font-semibold text-xs ${
+                            pet.vaccinated
+                              ? "text-green-700 dark:text-green-300"
+                              : "text-red-700 dark:text-red-300"
+                          }`}
+                        >
                           {pet.vaccinated ? "Yes ✓" : "No ✗"}
                         </Text>
                       </View>
@@ -396,15 +435,22 @@ export default function MyProfileScreen(): React.JSX.Element {
                 </View>
               ) : (
                 <TouchableOpacity
-                  onPress={() => navigation.navigate("PetProfileSetup" as never)}
+                  onPress={() =>
+                    navigation.navigate("PetProfileSetup" as never)
+                  }
                   className="bg-gradient-to-br from-green-50 to-emerald-50 dark:from-green-900/20 dark:to-emerald-900/20 rounded-2xl p-8 border-2 border-dashed border-green-300 dark:border-green-700 items-center"
                 >
-                  <Ionicons name="add-circle-outline" size={64} color="#10B981" />
+                  <Ionicons
+                    name="add-circle-outline"
+                    size={64}
+                    color="#10B981"
+                  />
                   <Text className="text-gray-900 dark:text-white font-bold text-lg mt-4 mb-2">
                     Add Your Pet
                   </Text>
                   <Text className="text-gray-600 dark:text-gray-400 text-center">
-                    Create a profile for your furry friend to start finding matches!
+                    Create a profile for your furry friend to start finding
+                    matches!
                   </Text>
                 </TouchableOpacity>
               )}
@@ -417,7 +463,9 @@ export default function MyProfileScreen(): React.JSX.Element {
               </Text>
               <View className="space-y-2">
                 <View className="flex-row justify-between py-2">
-                  <Text className="text-gray-700 dark:text-gray-300">Member Since</Text>
+                  <Text className="text-gray-700 dark:text-gray-300">
+                    Member Since
+                  </Text>
                   <Text className="text-gray-900 dark:text-white font-semibold">
                     {user?.createdAt
                       ? new Date(user.createdAt).toLocaleDateString()
@@ -425,7 +473,9 @@ export default function MyProfileScreen(): React.JSX.Element {
                   </Text>
                 </View>
                 <View className="flex-row justify-between py-2">
-                  <Text className="text-gray-700 dark:text-gray-300">Account Status</Text>
+                  <Text className="text-gray-700 dark:text-gray-300">
+                    Account Status
+                  </Text>
                   <View className="bg-green-100 dark:bg-green-900/30 px-3 py-1 rounded-full">
                     <Text className="text-green-700 dark:text-green-300 font-semibold text-xs">
                       Active

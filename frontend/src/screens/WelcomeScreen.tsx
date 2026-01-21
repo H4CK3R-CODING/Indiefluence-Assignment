@@ -5,7 +5,6 @@ import {
   TouchableOpacity,
   Animated,
   Dimensions,
-  StatusBar,
   ScrollView,
   Platform,
 } from "react-native";
@@ -150,12 +149,6 @@ const WelcomeScreen: React.FC<{ navigation: any }> = ({ navigation }) => {
   return (
     <NavLayout title={"Welcome"}>
       <View className="flex-1 bg-purple-50 dark:bg-gray-900">
-        <StatusBar
-          barStyle="light-content"
-          backgroundColor="transparent"
-          translucent
-        />
-
         {/* Enhanced Animated Background with Gradient */}
         <View className="absolute inset-0">
           <LinearGradient

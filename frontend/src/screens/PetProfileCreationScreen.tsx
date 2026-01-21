@@ -9,7 +9,6 @@ import {
   ScrollView,
   Pressable,
   Animated,
-  StatusBar,
   Image,
 } from "react-native";
 import { LinearGradient } from "expo-linear-gradient";
@@ -26,8 +25,8 @@ interface ValidationErrors {
   weight?: string;
 }
 
-const PetProfileCreationScreen: React.FC = () => {
-  const navigation = useNavigation();
+const PetProfileCreationScreen: React.FC<{ navigation: any }> = ({navigation}) => {
+  // const navigation = useNavigation();
   const { createPetProfile } = useAuthStore();
   // Form State
   const [petProfile, setPetProfile] = useState<PetProfileData>({
@@ -37,11 +36,12 @@ const PetProfileCreationScreen: React.FC = () => {
     age: null,
     weight: null,
     vaccinated: null,
+    imageUrl: "",
   });
 
   const [errors, setErrors] = useState<ValidationErrors>({});
   const [isLoading, setIsLoading] = useState<boolean>(false);
-  const [imageUri, setImageUri] = useState<string>("");
+  // const [imageUrl, setImageUrl] = useState<string>("");
 
   // Animations
   const fadeAnim = useRef(new Animated.Value(0)).current;
@@ -141,7 +141,7 @@ const PetProfileCreationScreen: React.FC = () => {
       return;
     }
 
-    if (!petProfile.vaccinated) {
+    if (petProfile.vaccinated != true && petProfile.vaccinated != false) {
       Toast.show({
         type: "error",
         text1: "Missing Information",
@@ -158,7 +158,16 @@ const PetProfileCreationScreen: React.FC = () => {
       // TODO: Replace with actual API call
       await createPetProfile(petProfile);
       // await mockCreatePetAPI(petProfile);
-
+      setPetProfile({
+        petName: "",
+        breed: "",
+        gender: "",
+        age: null,
+        weight: null,
+        vaccinated: null,
+        imageUrl: "",
+      });
+      
       Toast.show({
         type: "success",
         text1: "Profile Created! 🎉",
@@ -245,16 +254,18 @@ const PetProfileCreationScreen: React.FC = () => {
                   <TextInput
                     placeholder="Paste image URL here..."
                     placeholderTextColor="#9CA3AF"
-                    value={imageUri}
-                    onChangeText={setImageUri}
+                    value={petProfile.imageUrl}
+                    onChangeText={(text) => {
+                      setPetProfile({ ...petProfile, imageUrl: text });
+                    }}
                     className="bg-gray-100 dark:bg-gray-700/50 rounded-2xl border border-gray-300 dark:border-gray-600 px-4 py-3 text-gray-800 dark:text-gray-200"
                     autoCapitalize="none"
                   />
 
-                  {imageUri ? (
+                  {petProfile.imageUrl ? (
                     <View className="mt-4 items-center">
                       <Image
-                        source={{ uri: imageUri }}
+                        source={{ uri: petProfile.imageUrl }}
                         className="w-32 h-32 rounded-full"
                         resizeMode="cover"
                       />
@@ -462,7 +473,9 @@ const PetProfileCreationScreen: React.FC = () => {
                         placeholderTextColor="#9CA3AF"
                         value={petProfile.weight?.toString() || ""}
                         onChangeText={(text) => {
-                          const numericValue = text.replace(/[^0-9.]/g, "").replace(/(\..*)\./g, "$1");// allow decimals if needed
+                          const numericValue = text
+                            .replace(/[^0-9.]/g, "")
+                            .replace(/(\..*)\./g, "$1"); // allow decimals if needed
 
                           setPetProfile({
                             ...petProfile,

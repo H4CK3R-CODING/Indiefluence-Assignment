@@ -4,7 +4,7 @@ import { Feather } from "@expo/vector-icons";
 import { useNavigation } from "@react-navigation/native";
 import Navbar from "./Navbar";
 
-export default function NavLayout({ children, title, showAiChat = true }) {
+export default function NavLayout({ children, title, showAiChat = false }) {
   const navigation = useNavigation();
 
   return (

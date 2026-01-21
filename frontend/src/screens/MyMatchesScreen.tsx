@@ -8,8 +8,6 @@ import {
   Image,
   Animated,
   Dimensions,
-  FlatList,
-  StatusBar
 } from 'react-native';
 
 const { width: SCREEN_WIDTH } = Dimensions.get('window');
@@ -32,8 +30,7 @@ export default function MyMatchesScreen() {
 
   return (
     <View className="flex-1 bg-gray-50">
-      <StatusBar barStyle="dark-content" />
-      
+
       {/* Header */}
       <View className="bg-white px-6 pt-12 pb-4 shadow-sm">
         <Text className="text-3xl font-bold text-gray-900 mb-4">Matches</Text>
