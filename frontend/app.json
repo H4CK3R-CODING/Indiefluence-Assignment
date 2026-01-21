@@ -1,0 +1,77 @@
+{
+  "expo": {
+    "name": "frontend",
+    "slug": "frontend",
+    "version": "1.0.0",
+    "orientation": "portrait",
+    "icon": "./assets/images/icon.png",
+    "scheme": "frontend",
+    "newArchEnabled": true,
+    "userInterfaceStyle": "automatic",
+    "jsEngine": "hermes",
+    "ios": {
+      "supportsTablet": true,
+      "icon": "./assets/images/icon.png",
+      "runtimeVersion": {
+        "policy": "appVersion"
+      },
+      "bundleIdentifier": "com.aetherionx.frontend"
+    },
+    "splash": {
+      "image": "./assets/images/splash.png",
+      "resizeMode": "contain",
+      "backgroundColor": "#E6F4FE"
+    },
+    "android": {
+      "splash": {
+        "image": "./assets/images/splash.png",
+        "resizeMode": "contain",
+        "backgroundColor": "#E6F4FE"
+      },
+      "icon": "./assets/images/icon.png",
+      "enableProguardInReleaseBuilds": true,
+      "enableShrinkResources": true,
+
+      "adaptiveIcon": {
+        "backgroundColor": "#E6F4FE",
+        "foregroundImage": "./assets/images/icon.png"
+      },
+      "edgeToEdgeEnabled": true,
+      "softwareKeyboardLayoutMode": "resize",
+      "predictiveBackGestureEnabled": false,
+      "package": "com.aetherionx.frontend",
+      "runtimeVersion": "1.0.0",
+      "permissions": ["android.permission.RECORD_AUDIO"]
+    },
+    "web": {
+      "output": "single",
+      "build": {
+        "babel": {
+          "dangerouslyAllowEval": true
+        }
+      },
+      "icon": "./assets/images/icon.png",
+      "bundler": "metro",
+      "favicon": "./assets/images/web.png"
+    },
+    "plugins": [
+      "expo-router",
+      [
+        "expo-splash-screen",
+        {
+          "image": "./assets/images/splash-icon.png",
+          "imageWidth": 200,
+          "resizeMode": "contain",
+          "backgroundColor": "#ffffff",
+          "dark": {
+            "backgroundColor": "#000000"
+          }
+        }
+      ]
+    ],
+    "experiments": {
+      "typedRoutes": true,
+      "reactCompiler": true
+    }
+  }
+}
