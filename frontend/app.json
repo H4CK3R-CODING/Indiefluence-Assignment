@@ -31,7 +31,6 @@
       "icon": "./assets/images/icon.png",
       "enableProguardInReleaseBuilds": true,
       "enableShrinkResources": true,
-
       "adaptiveIcon": {
         "backgroundColor": "#E6F4FE",
         "foregroundImage": "./assets/images/icon.png"
@@ -41,7 +40,9 @@
       "predictiveBackGestureEnabled": false,
       "package": "com.aetherionx.frontend",
       "runtimeVersion": "1.0.0",
-      "permissions": ["android.permission.RECORD_AUDIO"]
+      "permissions": [
+        "android.permission.RECORD_AUDIO"
+      ]
     },
     "web": {
       "output": "single",
@@ -72,6 +73,12 @@
     "experiments": {
       "typedRoutes": true,
       "reactCompiler": true
+    },
+    "extra": {
+      "router": {},
+      "eas": {
+        "projectId": "db23e781-beac-437f-89a3-a319ab4de4b7"
+      }
     }
   }
 }

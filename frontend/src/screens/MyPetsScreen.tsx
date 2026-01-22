@@ -548,7 +548,7 @@ const MyPetsScreen: React.FC = () => {
               Start by adding your first pet profile
             </Text>
             <TouchableOpacity
-              onPress={() => navigation.navigate("PetProfileSetup" as never)}
+              onPress={() => navigation.navigate("PetProfileCreationScreen" as never)}
               className="overflow-hidden rounded-xl"
               activeOpacity={0.8}
             >

@@ -436,7 +436,7 @@ export default function MyProfileScreen(): React.JSX.Element {
               ) : (
                 <TouchableOpacity
                   onPress={() =>
-                    navigation.navigate("PetProfileSetup" as never)
+                    navigation.navigate("PetProfileCreationScreen" as never)
                   }
                   className="bg-gradient-to-br from-green-50 to-emerald-50 dark:from-green-900/20 dark:to-emerald-900/20 rounded-2xl p-8 border-2 border-dashed border-green-300 dark:border-green-700 items-center"
                 >
