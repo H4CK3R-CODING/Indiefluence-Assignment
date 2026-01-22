@@ -26,6 +26,7 @@ export const register = asyncHandler(async (req, res) => {
   });
 
   const token = generateToken(user._id);
+  console.log(`New user registered: ${email}`);
 
   res
     .status(HTTP_STATUS.CREATED)
@@ -40,6 +41,7 @@ export const register = asyncHandler(async (req, res) => {
 
 export const login = asyncHandler(async (req, res) => {
   const { email, password } = req.body;
+  console.log(`Login attempt for user: ${email}`);
 
   const user = await User.findOne({ email }).select("+password");
   if (!user) {
@@ -58,6 +60,7 @@ export const login = asyncHandler(async (req, res) => {
   }
 
   const token = generateToken(user._id);
+  console.log("token generated for user:", token);
 
   res.json(
     new ApiResponse(

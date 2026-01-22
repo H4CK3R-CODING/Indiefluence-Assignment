@@ -49,7 +49,7 @@ export const unhandledRejectionHandler = (server) => {
     console.error("UNHANDLED REJECTION! 💥 Shutting down...");
     console.error(err.name, err.message);
     server.close(() => {
-      process.exit(1);
+      // process.exit(1);
     });
   });
 };

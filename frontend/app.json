@@ -41,6 +41,7 @@
       "package": "com.aetherionx.frontend",
       "runtimeVersion": "1.0.0",
       "permissions": [
+        "android.permission.RECORD_AUDIO",
         "android.permission.RECORD_AUDIO"
       ]
     },
@@ -60,7 +61,7 @@
       [
         "expo-splash-screen",
         {
-          "image": "./assets/images/splash-icon.png",
+          "image": "./assets/images/splash.png",
           "imageWidth": 200,
           "resizeMode": "contain",
           "backgroundColor": "#ffffff",
@@ -79,6 +80,9 @@
       "eas": {
         "projectId": "db23e781-beac-437f-89a3-a319ab4de4b7"
       }
+    },
+    "updates": {
+      "url": "https://u.expo.dev/db23e781-beac-437f-89a3-a319ab4de4b7"
     }
   }
 }
