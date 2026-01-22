@@ -41,7 +41,7 @@ unhandledRejectionHandler(server);
 // Handle SIGTERM
 process.on("SIGTERM", () => {
   console.log("👋 SIGTERM received. Shutting down gracefully...");
-  server.close(() => {
-    console.log("💤 Process terminated");
-  });
+  // server.close(() => {
+  //   console.log("💤 Process terminated");
+  // });
 });

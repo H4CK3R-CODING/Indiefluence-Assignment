@@ -48,8 +48,8 @@ export const unhandledRejectionHandler = (server) => {
   process.on("unhandledRejection", (err) => {
     console.error("UNHANDLED REJECTION! 💥 Shutting down...");
     console.error(err.name, err.message);
-    server.close(() => {
-      // process.exit(1);
-    });
+    // server.close(() => {
+    //   process.exit(1);
+    // });
   });
 };
